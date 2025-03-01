@@ -18,14 +18,31 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField, Tooltip("最大速度。")]
     private float maxVelocity = 6f;
 
-    [SerializeField, Tooltip("倾斜角度。 \n 傾き。")]
+    [SerializeField, Tooltip("倾斜角度。 \n傾き。")]
     private float tilt = 45f;
 
-    [SerializeField, Tooltip("Restrict the position within the boundary range. \n 限制位置在边界范围内。 \n 位置を境界範囲内に制限する。")] 
+    [SerializeField, Tooltip("Restrict the position within the boundary range. \n限制位置在边界范围内。 \n位置を境界範囲内に制限する。")] 
     private Boundary boundary;
     
     private Rigidbody rb;
     private Vector3 inputDir;
+
+    #region \\Attack \\攻击 \\ 攻撃
+
+    [SerializeField, Tooltip("子弹预制体。\n弾丸プレハブ。")]
+    private GameObject bulletPrefab;
+    
+    [SerializeField, Tooltip("Bullet firing position.\n子弹发射位置。\n弾丸発射位置。")]
+    private Transform shootTransform;
+
+    [SerializeField, Tooltip("Bullet firing interval.\n子弹发射时间间隔。\n弾丸発射間隔。")]
+    private float shootInterval = 0.5f;
+
+    [SerializeField]
+    private AudioSource shootAudio;
+
+    private float shootTimePoint;
+    #endregion
     
     // Start is called before the first frame update
     private void Start()
@@ -36,16 +53,23 @@ public class PlayerShipController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        // Get input. // 获取输入。 // 入力を取得する。
+        // --- Get input ---
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
-        
         inputDir = new Vector3(h, v, 0f).normalized;
+
+        // --- Shoot ---
+        if (Input.GetButton("Fire1") && Time.time > shootTimePoint)
+        {
+            shootTimePoint = Time.time + shootInterval;
+            Instantiate(bulletPrefab, shootTransform.position, shootTransform.rotation);
+            shootAudio.Play();
+        }
     }
 
     private void FixedUpdate()
     {
-        // --- Move // 移动 ---
+        // --- Move ---
         if (inputDir != Vector3.zero)
         {
             // Increase speed. // 增加速度。 // 速度を増加させる。
@@ -71,11 +95,11 @@ public class PlayerShipController : MonoBehaviour
         }
         
         
-        // --- Rotate // 旋转 ---
+        // --- Rotate ---
         rb.rotation = Quaternion.Euler(rb.velocity.y / maxVelocity * tilt, 0f, 0f);
         
         
-        // --- Limit the position // 限制位置 // 位置を制限する ---
+        // --- Limit the position ---
         float posX = Mathf.Clamp(rb.position.x, boundary.xMin, boundary.xMax);
         float posY = Mathf.Clamp(rb.position.y, boundary.yMin, boundary.yMax);
         

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BGScroller : MonoBehaviour
 {
-    [SerializeField, Tooltip("Background movement speed.\n 背景移动速度。\n 背景の移動速度。")]
+    [SerializeField, Tooltip("Background movement speed.\n背景移动速度。\n背景の移動速度。")]
     private float scrollSpeed = 2f;
     
     private Vector3 startPos;
