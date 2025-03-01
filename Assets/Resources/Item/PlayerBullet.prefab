@@ -97,8 +97,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f5bd1496e777ad47b6736909f0cee20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
-  lifeTime: 4
+  FlySpeed: 10
+  RotateSpeed: 0
+  lifetime: 4
+  FlyDirection: 2
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 0

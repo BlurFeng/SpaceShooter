@@ -4,12 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-[System.Serializable]
-public struct Boundary
-{
-    public float xMin, xMax, yMin, yMax;
-}
-
 public class PlayerShipController : MonoBehaviour
 {
     [SerializeField, Tooltip("加速度。")]
@@ -48,6 +42,7 @@ public class PlayerShipController : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        transform.position = new Vector3(transform.position.x, transform.position.y, GameSettings.PlayItemPosZ);
     }
 
     // Update is called once per frame
