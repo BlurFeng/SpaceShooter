@@ -23,7 +23,7 @@ public class EnemyBase : FlyItemBase , IDamageable
         return scoreValue;
     }
 
-    protected void DestroySelf()
+    protected virtual void DestroySelf()
     {
         Instantiate(explosionPrefab, transform.position, transform.rotation);
         Destroy(gameObject);

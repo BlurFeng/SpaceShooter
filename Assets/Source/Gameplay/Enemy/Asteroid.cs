@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Asteroid : EnemyBase
@@ -13,8 +12,13 @@ public class Asteroid : EnemyBase
     [SerializeField]
     private GameObject[] splitAsteroidPrefabs;
 
-    private void OnDestroy()
+    protected override void DestroySelf()
     {
+        base.DestroySelf();
+        
+        // When destroyed, generate fragment asteroids.
+        // 当自身被摧毁时，生成碎片小行星。
+        // 自分が破壊されると、破片の小惑星を生成する。
         if (asteroidCanSplit)
         {
             for (int i = 0; i < 2; i++)
