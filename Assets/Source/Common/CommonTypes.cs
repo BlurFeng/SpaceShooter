@@ -56,7 +56,7 @@ public enum Direction
     Down
 }
 
-class CommonTypes
+public static class CommonTypes
 {
     public static Vector3 GetDirection(Direction direction)
     {
@@ -84,4 +84,11 @@ class CommonTypes
     
         return Vector3.forward;
     }
+}
+
+[Serializable]
+public struct WeightItem
+{
+    public GameObject prefab;
+    public int weight;
 }

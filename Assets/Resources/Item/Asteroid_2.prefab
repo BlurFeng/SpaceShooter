@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 136259482664184800}
   - component: {fileID: 5400000}
   - component: {fileID: 7737327069364806640}
+  - component: {fileID: 665667214206969032}
   m_Layer: 0
   m_Name: Asteroid_2
   m_TagString: Enemy
@@ -189,3 +190,23 @@ MonoBehaviour:
   explosionPrefab: {fileID: 100004, guid: a6d58f54ce5934781962a4f887e834f3, type: 3}
   asteroidCanSplit: 0
   splitAsteroidPrefabs: []
+--- !u!114 &665667214206969032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8a60d74b39585446be533eb6427d2a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPropProbability: 0.2
+  spawnPropInfos:
+  - prefab: {fileID: 864806259615955830, guid: fbbfdb8654b59fa4786f52bbe1df7b55, type: 3}
+    weight: 1
+  - prefab: {fileID: 4170486753575900534, guid: 2b8ff243a46b8e843b95ecaeb4c3c695, type: 3}
+    weight: 1
+  - prefab: {fileID: 2980656790927665130, guid: ce1425ac8f3ddd04d820a43a3b06b3cd, type: 3}
+    weight: 1

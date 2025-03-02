@@ -5038,7 +5038,11 @@ MonoBehaviour:
   shootTransform: {fileID: 5373134896100760014}
   shootInterval: 0.5
   shootAudio: {fileID: 4409383908944817195}
-  explosionPrefab: {fileID: 100008, guid: 3455fe69f7ddc4604b95bf9b0a1e88d7, type: 3}
+  shooterLevel: 1
+  vfxLevelUp: {fileID: 7520639150586646105, guid: e3ca6d5d487431f41b1d1d7c9dc178c6, type: 3}
+  vfxShield: {fileID: 6198192219631039555, guid: c2d890a97e404f14297636084b24f06d, type: 3}
+  vfxShieldFlash: {fileID: 6198192219631039555, guid: c8666b65e15eebc40a30737c941371c6, type: 3}
+  vfxExplosion: {fileID: 100008, guid: 3455fe69f7ddc4604b95bf9b0a1e88d7, type: 3}
 --- !u!54 &3882626119055373285
 Rigidbody:
   m_ObjectHideFlags: 0

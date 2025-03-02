@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Source.Gameplay.Interfaces;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerShipController : MonoBehaviour, IDamageable
 {
@@ -21,7 +23,7 @@ public class PlayerShipController : MonoBehaviour, IDamageable
     private Rigidbody rb;
     private Vector3 inputDir;
 
-    #region \\Attack \\攻击 \\ 攻撃
+    #region Attack
 
     [Header("Attack")]
     [SerializeField, Tooltip("子弹预制体。\n弾丸プレハブ。")]
@@ -39,6 +41,10 @@ public class PlayerShipController : MonoBehaviour, IDamageable
     [SerializeField]
     private int shooterLevel = 1;
     
+    [SerializeField]
+    private GameObject vfxLevelUp;
+    private ParticleSystem vfxLevelUpParticleSystem;
+    
     private float shootTimePoint;
 
     /// <summary>
@@ -49,6 +55,7 @@ public class PlayerShipController : MonoBehaviour, IDamageable
     public void ShooterLevelUp()
     {
         shooterLevel++;
+        vfxLevelUpParticleSystem.Play();
     }
 
     private void Shoot()
@@ -95,12 +102,98 @@ public class PlayerShipController : MonoBehaviour, IDamageable
     }
     
     #endregion
+
+    #region Shield
+
+    [Header("Shield")]
+    [SerializeField]
+    private GameObject vfxShield;
+    private ParticleSystem vfxShieldParticleSystem;
+    [SerializeField]
+    private GameObject vfxShieldFlash;
+    private ParticleSystem vfxShieldFlashParticleSystem;
+    
+    private bool isInvincibleShield = false;
+    private float isInvincibleShieldTimePoint;
+
+    /// <summary>
+    /// Generate an invincibility shield that lasts for a certain period of time.
+    /// 生成一个持续一定时间的无敌护盾。
+    /// 一定時間続く無敵のシールドを生成する。
+    /// </summary>
+    /// <param name="duration"></param>
+    /// <param name="increment"></param>
+    public void InvincibleShield(float duration = 1f, bool increment = false)
+    {
+        isInvincibleShield = true;
+        
+        if (increment)
+        {
+            isInvincibleShieldTimePoint =
+                Time.time > isInvincibleShieldTimePoint
+                    ? Time.time + duration
+                    : Time.time + duration + isInvincibleShieldTimePoint - Time.time;
+        }
+        else
+        {
+            isInvincibleShieldTimePoint = Time.time + duration;
+        }
+
+        PlayShieldParticles(true);
+    }
+
+    private void UpdateInvincibleShield()
+    {
+        // Check if the invincibility shield has expired.
+        // 确认无敌护盾是否失效。
+        // 無敵シールドが失効したかどうかを確認する。
+        if (isInvincibleShield && Time.time > isInvincibleShieldTimePoint)
+        {
+            isInvincibleShield = false;
+            PlayShieldParticles(false);
+        }
+    }
+    
+    private void PlayShieldParticles(bool enable)
+    {
+        if(!vfxShieldParticleSystem) return;
+        
+        if (enable)
+        {
+            vfxShieldParticleSystem.Play();
+        }
+        else
+        {
+            vfxShieldParticleSystem.Stop();
+        }
+    }
+
+    #endregion
     
     // Start is called before the first frame update
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         transform.position = new Vector3(transform.position.x, transform.position.y, GameSettings.PlayItemPosZ);
+        
+        // Create a shield VFX. // 创建护盾特效。 // シールドVFXを作成する。
+        GameObject shield = Instantiate(vfxShield, transform.position, Quaternion.identity);
+        shield.transform.SetParent(transform);
+        shield.transform.localPosition = new Vector3(-0.16f, 0f, 0f);
+        shield.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
+        vfxShieldParticleSystem = shield.GetComponentInChildren<ParticleSystem>();
+        vfxShieldParticleSystem.Stop();
+        GameObject shieldFlash = Instantiate(vfxShieldFlash, transform.position, Quaternion.identity);
+        shieldFlash.transform.SetParent(transform);
+        shieldFlash.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+        vfxShieldFlashParticleSystem = shieldFlash.GetComponentInChildren<ParticleSystem>();
+        vfxShieldFlashParticleSystem.Stop();
+        
+        // Create a levelUp VFX. // 创建升级特效。 // レベルアップVFXを作成する。
+        GameObject levelUp = Instantiate(vfxLevelUp, transform.position, Quaternion.identity);
+        levelUp.transform.SetParent(transform);
+        vfxLevelUpParticleSystem = levelUp.GetComponentInChildren<ParticleSystem>();
+        vfxLevelUpParticleSystem.Stop();
     }
 
     // Update is called once per frame
@@ -116,6 +209,9 @@ public class PlayerShipController : MonoBehaviour, IDamageable
         {
             Shoot();
         }
+
+        // --- Shield ---
+        UpdateInvincibleShield();
     }
 
     private void FixedUpdate()
@@ -161,15 +257,33 @@ public class PlayerShipController : MonoBehaviour, IDamageable
 
     [Header("Damageable")]
     [SerializeField]
-    private GameObject explosionPrefab;
+    private GameObject vfxExplosion;
 
     public void TakeDamage(float damage)
     {
-        Instantiate(explosionPrefab, transform.position, transform.rotation);
+        // When having an invincibility shield, no damage is taken.
+        // 拥有无敌护盾时，不承受伤害。
+        // 無敵シールドを持っている間、ダメージを受けない。
+        if (isInvincibleShield)
+        {
+            vfxShieldFlashParticleSystem.time = 1f;
+            vfxShieldFlashParticleSystem.Play();
+            return;
+        }
+        
+        Instantiate(vfxExplosion, transform.position, transform.rotation);
         Destroy(gameObject);
         GameMode.Instance.GameOver();
     }
 
     #endregion
-    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Prop"))
+        {
+            IGetProp getProp = other.GetComponent<IGetProp>();
+            if (getProp != null) getProp.GetProp(gameObject);
+        }
+    }
 }

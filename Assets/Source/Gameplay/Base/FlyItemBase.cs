@@ -6,7 +6,7 @@ public class FlyItemBase : MonoBehaviour
 {
     [Header("FlyItemBase")]
     [SerializeField]
-    private float flySpeed = 10f;
+    private float flySpeed = 4f;
     
     [SerializeField]
     private float rotateSpeed = 0f;

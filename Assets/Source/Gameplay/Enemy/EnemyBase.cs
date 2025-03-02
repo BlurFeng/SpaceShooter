@@ -27,6 +27,9 @@ public class EnemyBase : FlyItemBase , IDamageable
     {
         Instantiate(explosionPrefab, transform.position, transform.rotation);
         Destroy(gameObject);
+        
+        PropGenerator propGenerator = GetComponent<PropGenerator>();
+        if (propGenerator != null) propGenerator.SpawnProp();
     }
 
     #endregion
