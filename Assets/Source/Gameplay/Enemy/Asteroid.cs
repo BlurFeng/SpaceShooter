@@ -1,9 +1,31 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Asteroid : EnemyBase
 {
+    [Header("Asteroid Split")]
+    [SerializeField]
+    private bool asteroidCanSplit;
+    
+    [SerializeField]
+    private GameObject[] splitAsteroidPrefabs;
+
+    private void OnDestroy()
+    {
+        if (asteroidCanSplit)
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                FlyItemBase flyItemBase = Instantiate(splitAsteroidPrefabs[i], transform.position, transform.rotation).GetComponent<FlyItemBase>();
+
+                flyItemBase.SetCustomFlyDirection(BlurFunctionLibrary.AngleAxis(Rigidbody.velocity, Vector3.forward, i == 1 ? 45f : -45f));
+            }
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         // When the Asteroid hits the target, it deals damage to damageable targets and destroys itself.

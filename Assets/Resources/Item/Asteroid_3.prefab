@@ -112,7 +112,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 400000}
@@ -180,8 +180,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 164b83b993ddd814d82e1acb17d7740a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FlySpeed: 2.4
-  RotateSpeed: 1.3
+  flySpeed: 1.8
+  rotateSpeed: 2
   lifetime: 20
-  FlyDirection: 3
+  flyDirection: 3
+  customFlyDirection: {x: 0, y: 0, z: 0}
+  scoreValue: 100
   explosionPrefab: {fileID: 100004, guid: a6d58f54ce5934781962a4f887e834f3, type: 3}
+  asteroidCanSplit: 1
+  splitAsteroidPrefabs:
+  - {fileID: 100002, guid: c25b733c075245e418f5ed2265186449, type: 3}
+  - {fileID: 7577226030956612877, guid: e38ca9244f8793045952f0dc8faaf59a, type: 3}

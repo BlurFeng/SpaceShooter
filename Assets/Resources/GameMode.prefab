@@ -44,15 +44,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ed8f242af390d749b83d6c6363e4043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemiesSpawnBoundary:
-    xMin: 14
-    xMax: 14
-    yMin: -6
-    yMax: 6
+  enemiesSpawnBoundary:
+    xMin: 0
+    xMax: 0
+    yMin: 0
+    yMax: 0
   spawnEnemyPrefabs:
   - {fileID: 100000, guid: 7d5f7699d6d1d48e485ac71126e12061, type: 3}
+  - {fileID: 8832299058368522861, guid: 9d4802838bd560240a60c83bb9e709da, type: 3}
   - {fileID: 100002, guid: 9143e2b62ad50488482f9b73672fc331, type: 3}
+  - {fileID: 2015869786687990435, guid: 3d847a57a915d664fa92f90b52c09164, type: 3}
   - {fileID: 100002, guid: 834bfaee90a9d4e04b1e8c1ca22cc88e, type: 3}
+  - {fileID: 8707609225745178338, guid: f26dd7d63913e954e82669e28938c158, type: 3}
   spawnEnemiesInterval:
     value: 1.2
     randomDeviation: 0.8
