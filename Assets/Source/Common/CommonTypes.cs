@@ -24,7 +24,14 @@ public struct FloatRandom
 
     public float GetValue()
     {
+        if (!IsValid()) return 0f;
+        
         return value + Random.Range(-randomDeviation, randomDeviation);
+    }
+
+    public bool IsValid()
+    {
+        return value > 0f || randomDeviation > 0f;
     }
 }
 
@@ -44,6 +51,14 @@ public struct IntRandom
     {
         return value + Random.Range(-randomDeviation, randomDeviation);
     }
+}
+
+
+[Serializable]
+public struct WeightItem
+{
+    public GameObject prefab;
+    public int weight;
 }
 
 public enum Direction
@@ -84,11 +99,4 @@ public static class CommonTypes
     
         return Vector3.forward;
     }
-}
-
-[Serializable]
-public struct WeightItem
-{
-    public GameObject prefab;
-    public int weight;
 }

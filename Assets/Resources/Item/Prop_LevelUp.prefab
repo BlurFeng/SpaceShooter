@@ -97,7 +97,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flySpeed: 0.5
-  rotateSpeed: 1
+  rotateSpeed:
+    value: 1
+    randomDeviation: 0.4
   lifetime: 20
   flyDirection: 3
   customFlyDirection: {x: 0, y: 0, z: 0}

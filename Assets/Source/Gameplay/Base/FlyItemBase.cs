@@ -7,9 +7,9 @@ public class FlyItemBase : MonoBehaviour
     [Header("FlyItemBase")]
     [SerializeField]
     private float flySpeed = 4f;
-    
-    [SerializeField]
-    private float rotateSpeed = 0f;
+
+    [SerializeField] 
+    private FloatRandom rotateSpeed;
     
     [SerializeField]
     private float lifetime = 4f;
@@ -44,7 +44,9 @@ public class FlyItemBase : MonoBehaviour
         // Set the initial movement and rotation speed. //设置初始移动和旋转速度。 //初期の移動速度と回転速度を設定する。
         Vector3 dir = customFlyDirection != Vector3.zero ? customFlyDirection : CommonTypes.GetDirection(flyDirection);
         Rigidbody.velocity = dir * flySpeed;
-        Rigidbody.angularVelocity = Random.insideUnitSphere * rotateSpeed;
+        
+        if( rotateSpeed.IsValid())
+            Rigidbody.angularVelocity = Random.insideUnitSphere * rotateSpeed.GetValue();
     }
 
     // Update is called once per frame
@@ -65,10 +67,13 @@ public class FlyItemBase : MonoBehaviour
     /// </summary>
     /// <param name="inFlySpeed"></param>
     /// <param name="inRotateSpeed"></param>
-    public void SetSpeed(float inFlySpeed, float inRotateSpeed)
+    public void SetSpeed(float inFlySpeed, float inRotateSpeed, float inRotateSpeedRandomDeviation = -1)
     {
         flySpeed = inFlySpeed;
-        rotateSpeed = inRotateSpeed;
+        
+        if (inRotateSpeedRandomDeviation <= 0)
+            inRotateSpeedRandomDeviation = inRotateSpeed * 0.4f;
+        rotateSpeed = new FloatRandom(inRotateSpeed, inRotateSpeedRandomDeviation);
     }
 
     /// <summary>
