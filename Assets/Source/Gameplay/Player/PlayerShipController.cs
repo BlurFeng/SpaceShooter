@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class PlayerShipController : MonoBehaviour
+public class PlayerShipController : MonoBehaviour, IDamageable
 {
+    [Header("Movement")]
     [SerializeField, Tooltip("加速度。")]
     private float acceleratedVelocity = 42f;
     
@@ -23,6 +24,7 @@ public class PlayerShipController : MonoBehaviour
 
     #region \\Attack \\攻击 \\ 攻撃
 
+    [Header("Attack")]
     [SerializeField, Tooltip("子弹预制体。\n弾丸プレハブ。")]
     private GameObject bulletPrefab;
     
@@ -57,7 +59,8 @@ public class PlayerShipController : MonoBehaviour
         if (Input.GetButton("Fire1") && Time.time > shootTimePoint)
         {
             shootTimePoint = Time.time + shootInterval;
-            Instantiate(bulletPrefab, shootTransform.position, shootTransform.rotation);
+            var bullet = Instantiate(bulletPrefab, shootTransform.position, shootTransform.rotation);
+            bullet.GetComponent<PlayerBullet>().Init(tag);
             shootAudio.Play();
         }
     }
@@ -100,4 +103,19 @@ public class PlayerShipController : MonoBehaviour
         
         rb.position = new Vector3(posX, posY, rb.position.z);
     }
+
+    #region Damageable
+
+    [Header("Damageable")]
+    [SerializeField]
+    private GameObject explosionPrefab;
+
+    public void TakeDamage(float damage)
+    {
+        Instantiate(explosionPrefab, transform.position, transform.rotation);
+        Destroy(gameObject);
+    }
+
+    #endregion
+    
 }

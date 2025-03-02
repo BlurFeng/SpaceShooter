@@ -101,6 +101,7 @@ MonoBehaviour:
   RotateSpeed: 1.3
   lifetime: 20
   FlyDirection: 3
+  explosionPrefab: {fileID: 100004, guid: a6d58f54ce5934781962a4f887e834f3, type: 3}
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 0

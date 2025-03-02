@@ -4993,7 +4993,7 @@ GameObject:
   - component: {fileID: 4409383908944817195}
   m_Layer: 0
   m_Name: PlayerShip
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5038,6 +5038,7 @@ MonoBehaviour:
   shootTransform: {fileID: 5373134896100760014}
   shootInterval: 0.5
   shootAudio: {fileID: 4409383908944817195}
+  explosionPrefab: {fileID: 100008, guid: 3455fe69f7ddc4604b95bf9b0a1e88d7, type: 3}
 --- !u!54 &3882626119055373285
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ using UnityEngine.Serialization;
 
 public class FlyItemBase : MonoBehaviour
 {
+    [Header("FlyItemBase")]
     [SerializeField]
     private float FlySpeed = 10f;
     
