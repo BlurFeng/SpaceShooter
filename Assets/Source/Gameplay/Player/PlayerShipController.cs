@@ -114,6 +114,7 @@ public class PlayerShipController : MonoBehaviour, IDamageable
     {
         Instantiate(explosionPrefab, transform.position, transform.rotation);
         Destroy(gameObject);
+        GameMode.Instance.GameOver();
     }
 
     #endregion

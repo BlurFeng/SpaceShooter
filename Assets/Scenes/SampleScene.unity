@@ -429,6 +429,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1846456686 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3265048808861371526, guid: 09f0e6aaf064d5442ad8324f77ea9f4a, type: 3}
+  m_PrefabInstance: {fileID: 6367754720398894274}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ed8f242af390d749b83d6c6363e4043, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1889064687 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6878296820402296437, guid: 8dfa1f962c79d6d459f675528b4e03d1, type: 3}
@@ -613,6 +624,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3265048808861371526, guid: 09f0e6aaf064d5442ad8324f77ea9f4a, type: 3}
+      propertyPath: enemiesSpawnBoundary.xMax
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 3265048808861371526, guid: 09f0e6aaf064d5442ad8324f77ea9f4a, type: 3}
+      propertyPath: enemiesSpawnBoundary.xMin
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 3265048808861371526, guid: 09f0e6aaf064d5442ad8324f77ea9f4a, type: 3}
+      propertyPath: enemiesSpawnBoundary.yMax
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3265048808861371526, guid: 09f0e6aaf064d5442ad8324f77ea9f4a, type: 3}
+      propertyPath: enemiesSpawnBoundary.yMin
+      value: -6
+      objectReference: {fileID: 0}
     - target: {fileID: 6437202038645842361, guid: 09f0e6aaf064d5442ad8324f77ea9f4a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -727,6 +754,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 388286539}
     m_Modifications:
+    - target: {fileID: 2476396744027349160, guid: 8dfa1f962c79d6d459f675528b4e03d1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2476396744027349160, guid: 8dfa1f962c79d6d459f675528b4e03d1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2476396744027349160, guid: 8dfa1f962c79d6d459f675528b4e03d1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1846456686}
+    - target: {fileID: 2476396744027349160, guid: 8dfa1f962c79d6d459f675528b4e03d1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2476396744027349160, guid: 8dfa1f962c79d6d459f675528b4e03d1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GameRestart
+      objectReference: {fileID: 0}
+    - target: {fileID: 2476396744027349160, guid: 8dfa1f962c79d6d459f675528b4e03d1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameMode, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2476396744027349160, guid: 8dfa1f962c79d6d459f675528b4e03d1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4116919348300143691, guid: 8dfa1f962c79d6d459f675528b4e03d1, type: 3}
       propertyPath: m_IsActive
       value: 0

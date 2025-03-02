@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 
 public class GameMode : MonoBehaviourSingleton<GameMode>
@@ -26,6 +28,8 @@ public class GameMode : MonoBehaviourSingleton<GameMode>
 
     public int Score => score;
     private int score;
+    
+    private bool isGameOver = false;
     
     // Start is called before the first frame update
     void Start()
@@ -65,6 +69,8 @@ public class GameMode : MonoBehaviourSingleton<GameMode>
                 yield return new WaitForSeconds(spawnEnemiesInterval.GetValue());
             }
             
+            if (isGameOver) break;
+            
             yield return new WaitForSeconds(spawnEnemiesWaveInterval.GetValue());
         }
     }
@@ -74,5 +80,16 @@ public class GameMode : MonoBehaviourSingleton<GameMode>
         this.score += scoreValue;
         
         UIEvent.OnScoreChange?.Invoke(this.score);
+    }
+
+    public void GameOver()
+    {
+        isGameOver = true;
+        UIEvent.OnGameOver?.Invoke();
+    }
+
+    public void GameRestart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

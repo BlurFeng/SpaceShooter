@@ -164,7 +164,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1284030217584838249}
   m_Layer: 5
-  m_Name: EndPanel
+  m_Name: GameOverPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -602,3 +602,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 9217277784276387320}
+  gameOverPanel: {fileID: 4116919348300143691}

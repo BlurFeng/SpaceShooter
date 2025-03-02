@@ -8,6 +8,8 @@ public class UIMain : MonoBehaviour
 {
     [SerializeField]
     private Text scoreText;
+    [SerializeField]
+    private GameObject gameOverPanel;
     
     // Start is called before the first frame update
     private void Start()
@@ -20,11 +22,13 @@ public class UIMain : MonoBehaviour
         SetScore(GameMode.Instance.Score);
         
         UIEvent.OnScoreChange += OnScoreChange;
+        UIEvent.OnGameOver += OnGameOver;
     }
 
     private void OnDisable()
     {
         UIEvent.OnScoreChange -= OnScoreChange;
+        UIEvent.OnGameOver -= OnGameOver;
     }
 
     // Update is called once per frame
@@ -41,5 +45,10 @@ public class UIMain : MonoBehaviour
     private void SetScore(int score)
     {
         scoreText.text = score.ToString();
+    }
+
+    private void OnGameOver()
+    {
+        gameOverPanel.SetActive(true);
     }
 }
