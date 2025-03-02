@@ -21,6 +21,8 @@ public class PlayerBullet : FlyItemBase
         {
             damageable.TakeDamage(10f);
             Destroy(gameObject);
+            
+            GameMode.Instance.AddScore(damageable.GetScore());
         }
     }
 }

@@ -4,6 +4,9 @@ using UnityEngine;
     
 public class EnemyBase : FlyItemBase , IDamageable
 {
+    [SerializeField]
+    protected int scoreValue = 100;
+    
     #region Damageable
 
     [Header("Damageable")]
@@ -13,6 +16,11 @@ public class EnemyBase : FlyItemBase , IDamageable
     public virtual void TakeDamage(float damage)
     {
         DestroySelf();
+    }
+
+    public virtual int GetScore()
+    {
+        return scoreValue;
     }
 
     protected void DestroySelf()

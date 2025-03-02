@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 
-public class GameMode : MonoBehaviour
+public class GameMode : MonoBehaviourSingleton<GameMode>
 {
     [SerializeField]
-    private Boundary EnemiesSpawnBoundary;
+    private Boundary enemiesSpawnBoundary;
     
     [SerializeField]
     private GameObject[] spawnEnemyPrefabs;
@@ -24,6 +24,9 @@ public class GameMode : MonoBehaviour
     [SerializeField]
     private IntRandom spawnEnemiesWaveCount = new IntRandom(6, 2);
 
+    public int Score => score;
+    private int score;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -53,8 +56,8 @@ public class GameMode : MonoBehaviour
                 
                 // Generate enemies within a random position range. // 在随机的位置范围内生成敌人。 // ランダムな位置範囲内で敵を生成する。
                 Vector3 spawnPos = new Vector3(
-                    Random.Range(EnemiesSpawnBoundary.xMin, EnemiesSpawnBoundary.xMax), 
-                    Random.Range(EnemiesSpawnBoundary.yMin, EnemiesSpawnBoundary.yMax), 
+                    Random.Range(enemiesSpawnBoundary.xMin, enemiesSpawnBoundary.xMax), 
+                    Random.Range(enemiesSpawnBoundary.yMin, enemiesSpawnBoundary.yMax), 
                     GameSettings.PlayItemPosZ);
                 
                 Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
@@ -64,5 +67,12 @@ public class GameMode : MonoBehaviour
             
             yield return new WaitForSeconds(spawnEnemiesWaveInterval.GetValue());
         }
+    }
+
+    public void AddScore(int scoreValue)
+    {
+        this.score += scoreValue;
+        
+        UIEvent.OnScoreChange?.Invoke(this.score);
     }
 }

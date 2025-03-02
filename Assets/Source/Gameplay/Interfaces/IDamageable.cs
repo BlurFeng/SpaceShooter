@@ -7,4 +7,9 @@ using UnityEngine;
 public interface IDamageable
 {
     public void TakeDamage(float damage);
+
+    public int GetScore()
+    {
+        return 1;
+    }
 }
