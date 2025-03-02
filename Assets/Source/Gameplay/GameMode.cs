@@ -113,6 +113,8 @@ public class GameMode : MonoBehaviourSingleton<GameMode>
 
     public void AddScore(int scoreValue)
     {
+        if (isGameOver) return;
+        
         this.score += scoreValue;
         
         UIEvent.OnScoreChange?.Invoke(this.score);
