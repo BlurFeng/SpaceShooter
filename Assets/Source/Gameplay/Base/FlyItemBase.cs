@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class FlyItemBase : MonoBehaviour
 {
-    [Header("FlyItemBase")]
+    [Header("Fly Item Base")]
     [SerializeField]
     private float flySpeed = 4f;
 
     [SerializeField] 
     private FloatRandom rotateSpeed;
     
-    [SerializeField]
+    [SerializeField, Tooltip("Destroy itself when the lifespan ends.\n存活时间结束后销毁自身。\n生存時間が終了したら自壊する。")]
     private float lifetime = 4f;
     
     [SerializeField]
@@ -41,6 +41,8 @@ public class FlyItemBase : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        InitSpeedPre();
+        
         // Set the initial movement and rotation speed. //设置初始移动和旋转速度。 //初期の移動速度と回転速度を設定する。
         Vector3 dir = customFlyDirection != Vector3.zero ? customFlyDirection : CommonTypes.GetDirection(flyDirection);
         Rigidbody.velocity = dir * flySpeed;
@@ -60,6 +62,11 @@ public class FlyItemBase : MonoBehaviour
         }
     }
 
+    protected virtual void InitSpeedPre()
+    {
+        
+    }
+
     /// <summary>
     /// Set the flight speed and rotation speed.
     /// 设置飞行速度和旋转速度。
@@ -74,6 +81,11 @@ public class FlyItemBase : MonoBehaviour
         if (inRotateSpeedRandomDeviation <= 0)
             inRotateSpeedRandomDeviation = inRotateSpeed * 0.4f;
         rotateSpeed = new FloatRandom(inRotateSpeed, inRotateSpeedRandomDeviation);
+    }
+
+    public void SetFlySpeedIncrease(float rate)
+    {
+        flySpeed *= rate;
     }
 
     /// <summary>

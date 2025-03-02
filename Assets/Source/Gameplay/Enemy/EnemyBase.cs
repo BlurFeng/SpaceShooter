@@ -28,6 +28,9 @@ public class EnemyBase : FlyItemBase , IDamageable
         Instantiate(explosionPrefab, transform.position, transform.rotation);
         Destroy(gameObject);
         
+        // When destroyed, randomly generate an item.
+        // 当自身销毁时，随机生成道具。
+        // 自身が破壊された際に、ランダムにアイテムを生成する。
         PropGenerator propGenerator = GetComponent<PropGenerator>();
         if (propGenerator != null) propGenerator.SpawnProp();
     }

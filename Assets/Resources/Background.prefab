@@ -284,7 +284,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 9930946b7c5f48e44aef1e56c2de7315, type: 3}
       propertyPath: m_Name
-      value: StarField
+      value: vfx_StarField
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9930946b7c5f48e44aef1e56c2de7315, type: 3}
       propertyPath: m_LocalPosition.x

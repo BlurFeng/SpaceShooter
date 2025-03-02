@@ -17,14 +17,27 @@ public class GameMode : MonoBehaviourSingleton<GameMode>
     [SerializeField]
     private FloatRandom spawnEnemiesInterval = new FloatRandom(1.2f, 0.8f);
     
+    [Header("Wave")]
     [SerializeField]
     private float spawnEnemiesWaveStartWait = 4f;
     
     [SerializeField]
-    private FloatRandom spawnEnemiesWaveInterval = new FloatRandom(12f, 2f);
+    private FloatRandom spawnEnemiesWaveInterval = new FloatRandom(8f, 4f);
     
     [SerializeField]
     private IntRandom spawnEnemiesWaveCount = new IntRandom(6, 2);
+
+    [SerializeField] 
+    private int waveDifficultyLevelIncreaseInterval = 1;
+    
+    [SerializeField] 
+    private int waveEnemiesNumIncreaseValue = 6;
+    [SerializeField] 
+    private int waveEnemiesNumIncreaseRandomDeviation = 2;
+
+    private int waveCounter = 0;
+    public int DifficultyLevel => difficultyLevel;
+    private int difficultyLevel = 0;
 
     public int Score => score;
     private int score;
@@ -49,6 +62,29 @@ public class GameMode : MonoBehaviourSingleton<GameMode>
 
         while (true)
         {
+            if (waveCounter != 0 && waveCounter % waveDifficultyLevelIncreaseInterval == 0)
+            {
+                difficultyLevel++;
+                
+                spawnEnemiesWaveCount = 
+                    new IntRandom(
+                        spawnEnemiesWaveCount.value + waveEnemiesNumIncreaseValue, 
+                        spawnEnemiesWaveCount.randomDeviation + waveEnemiesNumIncreaseRandomDeviation);
+
+                float rate = Mathf.Max(1 - difficultyLevel * 0.2f, 0.2f);
+                spawnEnemiesWaveInterval = 
+                    new FloatRandom(
+                        Mathf.Max(spawnEnemiesWaveInterval.value * rate, 1f), 
+                        Mathf.Max(spawnEnemiesWaveInterval.randomDeviation * rate, 0.5f));
+                
+                spawnEnemiesInterval = 
+                    new FloatRandom(
+                        Mathf.Max(spawnEnemiesInterval.value * rate, 0.3f), 
+                        Mathf.Max(spawnEnemiesInterval.randomDeviation * rate, 0.2f));
+            }
+            
+            waveCounter++;
+            
             // Get the number of randomly generated enemies. // 获取随机生成的敌人数量。 // ランダムに生成された敵の数を取得する。
             int spawnEnemyNumCur = spawnEnemiesWaveCount.GetValue();
             

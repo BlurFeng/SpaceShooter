@@ -6,11 +6,18 @@ using UnityEngine;
 public class Asteroid : EnemyBase
 {
     [Header("Asteroid Split")]
-    [SerializeField]
+    [SerializeField, Tooltip("When destroyed, generate fragment asteroids.\n当自身被销毁时，产生碎片小行星。\n自身が破壊された際に、破片の小惑星を生成する。")]
     private bool asteroidCanSplit;
     
     [SerializeField]
     private GameObject[] splitAsteroidPrefabs;
+
+    protected override void InitSpeedPre()
+    {
+        base.InitSpeedPre();
+        
+        SetFlySpeedIncrease(1f + GameMode.Instance.DifficultyLevel * 0.6f);
+    }
 
     protected override void DestroySelf()
     {
