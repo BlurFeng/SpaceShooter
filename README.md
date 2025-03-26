@@ -12,4 +12,4 @@ This project is a simple game created for a test assignment for a game company.
 隕石群が次第に密集していく中、宇宙船が破壊される前にできるだけ高いスコアを目指しましょう。
 このプロジェクトは、あるゲーム会社のテスト課題のために作成された簡単なゲームプロジェクトです。
 
-![](~Documents/Game.gif)
+![](Documents~/Game.gif)
